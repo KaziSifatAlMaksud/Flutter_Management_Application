@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage('assets/image/avatar.jpg'),
+                        backgroundImage: AssetImage('assets/image/proloader.jpg'),
                       ),
                       const SizedBox(width: 16),
                       Column(
