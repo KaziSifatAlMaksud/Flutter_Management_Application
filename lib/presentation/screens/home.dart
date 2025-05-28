@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottomNavigationBar.dart';
 import '../widgets/rightDrawer.dart';
 import '../widgets/topbar.dart';
+import '../widgets/homeCard.dart';
 
 class HomePage extends StatelessWidget {
   static const String employeeId = 'EMP001';
@@ -57,39 +58,54 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            // Grid of Buttons
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 8,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 3 / 2,
-                ),
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/users');
-                        },
-                        child: const Text('Employee List'),
-                      ),
-                    ),
-                  );
-                },
+            Container(
+              padding: EdgeInsets.all(8.0),
+              child: Wrap(
+                spacing: 8.0, // Horizontal space between cards
+                runSpacing: 8.0, // Vertical space between rows
+                children: [
+                  buildCard(context, '/users', Icons.backup_table_outlined , 'Employee'),
+                  buildCard(context, '/home', Icons.home, 'Home'),
+                  // buildCard(),
+                  // buildCard(),
+                  // buildCard(),
+                ],
               ),
-            ),
+            )
 
-            const SizedBox(height: 20),
+            // Grid of Buttons
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //   child: GridView.builder(
+            //     shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     itemCount: 8,
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 12,
+            //       crossAxisSpacing: 12,
+            //       childAspectRatio: 3 / 2,
+            //     ),
+            //     itemBuilder: (context, index) {
+            //       return Card(
+            //         elevation: 3,
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(12),
+            //         ),
+            //         child: Center(
+            //           child: ElevatedButton(
+            //             onPressed: () {
+            //               Navigator.pushNamed(context, '/users');
+            //             },
+            //             child: const Text('Employee List'),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+
+          //  const SizedBox(height: 20),
           ],
         ),
       ),
