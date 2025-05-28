@@ -9,7 +9,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(Duration(seconds: 2), () {
+
       Navigator.pushReplacementNamed(context, '/home');
     });
   }
@@ -17,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
           'assets/image/preloader.jpg',

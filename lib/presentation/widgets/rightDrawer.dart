@@ -37,6 +37,14 @@ class RightDrawer extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Sign Out'),
+                  onTap: () {
+                    onItemTapped(2); // Navigate to Profile
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ),
           ),

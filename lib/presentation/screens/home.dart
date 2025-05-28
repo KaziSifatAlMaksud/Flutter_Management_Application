@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Card(
-                elevation: 4,
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -61,11 +61,15 @@ class HomePage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.0),
               child: Wrap(
-                spacing: 8.0, // Horizontal space between cards
+                spacing: 2.0, // Horizontal space between cards
                 runSpacing: 8.0, // Vertical space between rows
                 children: [
                   buildCard(context, '/users', Icons.backup_table_outlined , 'Employee'),
                   buildCard(context, '/home', Icons.home, 'Home'),
+                  buildCard(context, '/home', Icons.home, 'Home'),
+                  buildCard(context, '/home', Icons.home, 'Home'),
+                  buildCard(context, '/home', Icons.home, 'Home'),
+                  buildCard(context, '/signUp', Icons.login, 'Home'),
                   // buildCard(),
                   // buildCard(),
                   // buildCard(),

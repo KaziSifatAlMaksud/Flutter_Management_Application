@@ -30,6 +30,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.report),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.percent),
+          label: 'Profile',
+        ),
       ],
     );
   }
