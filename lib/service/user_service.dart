@@ -11,7 +11,6 @@ class UserService {
 
       if (response.statusCode == 200) {
         final decoded = json.decode(response.body);
-
         // Case 1: Response is a List of users
         if (decoded is List) {
           return decoded.map((json) => User.fromJson(json)).toList();

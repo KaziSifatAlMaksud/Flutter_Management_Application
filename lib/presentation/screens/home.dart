@@ -69,7 +69,9 @@ class HomePage extends StatelessWidget {
                   buildCard(context, '/home', Icons.home, 'Home'),
                   buildCard(context, '/home', Icons.home, 'Home'),
                   buildCard(context, '/home', Icons.home, 'Home'),
-                  buildCard(context, '/signUp', Icons.login, 'Home'),
+                  buildCard(context, '/signUp', Icons.login, 'Sing Up'),
+                  buildCard(context, '/signUp', Icons.login, 'Sing Up'),
+                  buildCard(context, '/maltipleTab', Icons.tab, 'Maltiple Tab'),
                   // buildCard(),
                   // buildCard(),
                   // buildCard(),
@@ -77,39 +79,7 @@ class HomePage extends StatelessWidget {
               ),
             )
 
-            // Grid of Buttons
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            //   child: GridView.builder(
-            //     shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     itemCount: 8,
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //       mainAxisSpacing: 12,
-            //       crossAxisSpacing: 12,
-            //       childAspectRatio: 3 / 2,
-            //     ),
-            //     itemBuilder: (context, index) {
-            //       return Card(
-            //         elevation: 3,
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(12),
-            //         ),
-            //         child: Center(
-            //           child: ElevatedButton(
-            //             onPressed: () {
-            //               Navigator.pushNamed(context, '/users');
-            //             },
-            //             child: const Text('Employee List'),
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
 
-          //  const SizedBox(height: 20),
           ],
         ),
       ),

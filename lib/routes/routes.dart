@@ -3,7 +3,8 @@ import '../presentation/screens/home.dart';
 import '../presentation/screens/user_list_screen.dart';
 import '../presentation/screens/profile.dart';
 import '../presentation/screens/splashscreen.dart';
-import '../presentation/screens/signUpScreen.dart';
+import '../presentation/screens/signUpScreen3.dart';
+import '../presentation/screens/PM_management.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
@@ -13,5 +14,7 @@ class AppRoutes {
     '/users': (context) => UserListScreen(),
     '/profile': (context) =>  ProfilePage(),
     '/signUp' : (context) => SignInPage(),
+    '/maltipleTab' : (context) => SignInPage(),
+    '/maltipleTab' : (context) => MultiTableTabPage(),
   };
 }
