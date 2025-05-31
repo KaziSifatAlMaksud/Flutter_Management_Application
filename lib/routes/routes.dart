@@ -5,6 +5,7 @@ import '../presentation/screens/profile.dart';
 import '../presentation/screens/splashscreen.dart';
 import '../presentation/screens/signUpScreen3.dart';
 import '../presentation/screens/PM_management.dart';
+import '../presentation/screens/PM/pm_create_isssue.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
@@ -14,7 +15,8 @@ class AppRoutes {
     '/users': (context) => UserListScreen(),
     '/profile': (context) =>  ProfilePage(),
     '/signUp' : (context) => SignInPage(),
-    '/maltipleTab' : (context) => SignInPage(),
+    '/create_issue' : (context) => IssueFormPage(),
     '/maltipleTab' : (context) => MultiTableTabPage(),
+
   };
 }

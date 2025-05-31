@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                   buildCard(context, '/home', Icons.home, 'Home'),
                   buildCard(context, '/home', Icons.home, 'Home'),
                   buildCard(context, '/home', Icons.home, 'Home'),
-                  buildCard(context, '/home', Icons.home, 'Home'),
+                  buildCard(context, '/create_issue', Icons.sync_problem, 'Issue'),
                   buildCard(context, '/signUp', Icons.login, 'Sing Up'),
                   buildCard(context, '/signUp', Icons.login, 'Sing Up'),
                   buildCard(context, '/maltipleTab', Icons.tab, 'Maltiple Tab'),
