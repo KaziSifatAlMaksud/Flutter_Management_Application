@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'routes/routes.dart'; // update the path if needed
+import 'package:provider/provider.dart';
+import 'controller/employee_controller.dart';
+import 'routes/routes.dart'; // make sure path is correct
 
 void main() {
   runApp(MyApp());
@@ -8,11 +10,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Your App',
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: AppRoutes.routes,
+    return ChangeNotifierProvider(
+      create: (_) => EmployeeController(),
+      child: MaterialApp(
+        title: 'Your App',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: AppRoutes.routes,
+      ),
     );
   }
 }

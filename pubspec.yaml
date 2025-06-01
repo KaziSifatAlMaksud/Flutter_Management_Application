@@ -33,6 +33,7 @@ dependencies:
   google_fonts: ^6.1.0 # or the latest version
   flutter:
     sdk: flutter
+  provider: ^6.1.2
   fluttertoast: ^8.2.4
   flutter_animate: ^4.2.0
   http: ^1.4.0
