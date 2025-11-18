@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../assigned_person_autocomplete.dart';
+import '../../concerned_deparment_autocomplete.dart';
 
 class IssueFormPage extends StatefulWidget {
   @override
@@ -38,10 +39,12 @@ class _IssueFormPageState extends State<IssueFormPage> {
       print("Description: ${issues[i].descriptionController.text}");
       print("Manpower: ${issues[i].manpowerController.text}");
       print("Date: ${issues[i].dateController.text}");
+      print("concernedDepController: ${issues[i].concernedDepController.text}");
+      print("assignedPerson: ${issues[i].assignedPersonController.text}");
       print("-------------");
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Form Submitted!")),
+      SnackBar(content: Text("Form 22 Submitted!")),
     );
   }
 
@@ -89,7 +92,6 @@ class _IssueFormPageState extends State<IssueFormPage> {
                 itemBuilder: (context, index) {
                   return Card(
                     margin: EdgeInsets.symmetric(vertical: 16),
-                    // elevation: 3,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -136,47 +138,68 @@ class _IssueFormPageState extends State<IssueFormPage> {
                           ),
                           TextFormField(
                             controller: issues[index].descriptionController,
-                            decoration:
-                            InputDecoration(labelText: 'Issue Description'),
+                            decoration: InputDecoration(labelText: 'Issue Description'),
                           ),
-                          TextFormField(
-                            controller: issues[index].manpowerController,
-                            keyboardType: TextInputType.number,
-                            decoration:
-                            InputDecoration(labelText: 'Issue Manpower'),
-                          ),
-                          TextFormField(
-                            controller: issues[index].dateController,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              labelText: 'Select Date',
-                              suffixIcon: Icon(Icons.calendar_today),
-                            ),
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2020),
-                                lastDate: DateTime(2100),
-                              );
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: issues[index].manpowerController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(labelText: 'Issue Manpower'),
+                                ),
+                              ),
+                              SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: issues[index].dateController,
+                                  readOnly: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'Select Date',
+                                    suffixIcon: Icon(Icons.calendar_today),
+                                  ),
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2020),
+                                      lastDate: DateTime(2100),
+                                    );
 
-                              if (pickedDate != null) {
-                                setState(() {
-                                  issues[index].dateController.text =
-                                      DateFormat('yyyy-MM-dd').format(pickedDate);
-                                });
-                              }
-                            },
-                          ),   TextFormField(
-                            controller: issues[index].concernedDepController,
-                            keyboardType: TextInputType.number,
-                            decoration:
-                            InputDecoration(labelText: 'Concerned Department'),
+                                    if (pickedDate != null) {
+                                      setState(() {
+                                        issues[index].dateController.text =
+                                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                                      });
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                          AssignedPersonAutocomplete(
-                            controller: issues[index].assignedPersonController,
-                            suggestionList: assignedPersonList,
-                          ),
+                          SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ConcernedDepartmentAutocomplete(
+                                  controller: issues[index].concernedDepController,
+                                  // onSelected: (deptId) {
+                                  //   issues[index].concernedDepId = deptId;
+                                  // },
+                                ),
+
+                              ),
+                              SizedBox(width: 16), // Add some spacing between fields
+                              Expanded(
+                                child: AssignedPersonAutocomplete(
+                                  controller: issues[index].assignedPersonController,
+                                  // onSelected: (personId) {
+                                  //   issues[index].assignedPersonId = personId;  // <-- Save ID here
+                                  // },
+                                ),
+                              ),
+                            ],
+                          )
 
                         ],
                       ),
@@ -184,6 +207,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
                   );
                 },
               ),
+
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: submitForm,
@@ -215,7 +239,8 @@ class IssueRow {
   TextEditingController dateController;
   TextEditingController concernedDepController;
   TextEditingController assignedPersonController;
-
+  int? concernedDepId;
+  int? assignedPersonId;
   IssueRow({
     this.issueType = 'Design',
   })  : descriptionController = TextEditingController(),
@@ -223,7 +248,6 @@ class IssueRow {
         dateController = TextEditingController(),
         concernedDepController = TextEditingController(),
         assignedPersonController = TextEditingController();
-
   void dispose() {
     descriptionController.dispose();
     manpowerController.dispose();

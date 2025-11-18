@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../model/user_model.dart';
 
 class UserService {
-  final String baseUrl = 'http://127.0.0.1:8000/api/use-fetch';
+  final String baseUrl = 'http://127.0.0.1:8000/api/all_users';
 
   Future<List<User>> fetchUsers() async {
     try {
