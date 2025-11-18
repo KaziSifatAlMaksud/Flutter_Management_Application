@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Import your API tab helpers
+import '../../service/_buildApiTab.dart';
+
 class MultiTableTabPage extends StatefulWidget {
   const MultiTableTabPage({super.key});
 
@@ -19,6 +22,7 @@ class _MultiTableTabPageState extends State<MultiTableTabPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+
     _searchController.addListener(() {
       setState(() {
         _searchText = _searchController.text.toLowerCase();
@@ -39,7 +43,7 @@ class _MultiTableTabPageState extends State<MultiTableTabPage>
           ? TextField(
         controller: _searchController,
         autofocus: true,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Search...',
           border: InputBorder.none,
         ),
@@ -75,10 +79,10 @@ class _MultiTableTabPageState extends State<MultiTableTabPage>
       bottom: TabBar(
         controller: _tabController,
         tabs: const [
-          Tab(text: 'Users'),
-          Tab(text: 'Products'),
-          Tab(text: 'Orders'),
-          Tab(text: 'Sifat'),
+          Tab(text: 'Acknowledged'),
+          Tab(text: 'Ongoing'),
+          Tab(text: 'Rejected'),
+          Tab(text: 'Extras'),
         ],
         labelStyle: GoogleFonts.roboto(fontWeight: FontWeight.bold),
         unselectedLabelStyle: GoogleFonts.roboto(),
@@ -94,47 +98,32 @@ class _MultiTableTabPageState extends State<MultiTableTabPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildScrollableCardTab(
-            columns: ['ID', 'Name', 'Email', 'Status'],
-            rows: List.generate(20, (index) => [
-              '${index + 1}',
-              'User ${index + 1}',
-              'user${index + 1}@example.com',
-              index % 3 == 0 ? 'Active' : 'Inactive',
-            ]),
+          // API TAB 1
+          buildApiTab(
+            IssueService.fetchAcknowledged,
+            searchText: _searchText,
           ),
-          _buildScrollableCardTab(
-            columns: ['ID', 'Product', 'Price', 'Stock'],
-            rows: List.generate(12, (index) => [
-              'P${index + 1}',
-              'Product ${index + 1}',
-              '\$${(index + 1) * 10}',
-              '${(index + 1) * 5} pcs',
-            ]),
+
+          // API TAB 2
+          buildApiTab(
+            IssueService.fetchOngoing,
+            searchText: _searchText,
           ),
-          _buildScrollableCardTab(
-            columns: ['Order ID', 'Customer', 'Amount', 'Date'],
-            rows: List.generate(15, (index) => [
-              'ORD-${index + 101}',
-              'Customer ${index % 5 + 1}',
-              '\$${(index + 1) * 25}',
-              '2023-06-${index % 30 + 1}',
-            ]),
+
+          // API TAB 3
+          buildApiTab(
+            IssueService.fetchRejected,
+            searchText: _searchText,
           ),
-          _buildScrollableCardTab(
-            columns: ['ID', 'Name', 'Email', 'Status'],
-            rows: List.generate(10, (index) => [
-              '${index + 1}',
-              'Sifat ${index + 1}',
-              'sifat${index + 1}@example.com',
-              index % 2 == 0 ? 'Online' : 'Offline',
-            ]),
-          ),
+
+          // EXTRA TAB
+          buildDummyTab(),
         ],
       ),
     );
   }
 
+  // (Keep only if you still want your old manual scrollable table)
   Widget _buildScrollableCardTab({
     required List<String> columns,
     required List<List<String>> rows,
