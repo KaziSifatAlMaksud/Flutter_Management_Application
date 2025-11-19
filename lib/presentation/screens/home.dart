@@ -5,39 +5,76 @@ import '../widgets/rightDrawer.dart';
 import '../widgets/topbar.dart';
 import '../widgets/homeCard.dart';
 
-class HomePage extends StatelessWidget {
-  static const String employeeId = 'EMP001';
-  static const String employeeName = 'Kazi Sifat Al Maksud';
-  static const String designation = 'Web Developer';
-
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String employeeId = '';
+  String employeeName = '';
+  String departmentName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  // Load SharedPreferences data
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      employeeId  = prefs.getString("username") ?? "00000";
+      employeeName = prefs.getString("first_name") ?? "No Name";
+      departmentName = prefs.getString("department_name") ?? "No Department";
+    });
+  }
+
+  // Sign out function
   Future<void> signOut(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
 
-    // Optional toast/snackbar
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text("Signed out successfully!"),
         backgroundColor: Colors.red,
       ),
     );
 
-    // Navigate to Sign-In page
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
 
+  void _navigateTo(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/users');
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/profile');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Topper(),
+      endDrawer: RightDrawer(onItemTapped: (index) => _navigateTo(context, index)),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: 0,
+        onTap: (index) => _navigateTo(context, index),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 16),
-
             // Employee Info Card
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -58,16 +95,16 @@ class HomePage extends StatelessWidget {
                       const SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             employeeName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text('ID: $employeeId'),
-                          Text(designation),
+                          Text('$departmentName'),
                         ],
                       ),
                     ],
@@ -75,53 +112,25 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
             Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Wrap(
-                spacing: 2.0, // Horizontal space between cards
-                runSpacing: 8.0, // Vertical space between rows
+                spacing: 2.0,
+                runSpacing: 8.0,
                 children: [
-                  buildCard(context, '/users', Icons.backup_table_outlined , 'Employee'),
+                  buildCard(context, '/users', Icons.backup_table_outlined, 'Employee'),
                   buildCard(context, '/home', Icons.home, 'Home'),
-                  buildCard(context, '/home', Icons.home, 'Home'),
-                  buildCard(context, '/employee_view', Icons.pages_outlined, 'Home'),
+                  buildCard(context, '/employee_view', Icons.pages_outlined, 'Employee View'),
                   buildCard(context, '/create_issue', Icons.sync_problem, 'Issue'),
-                  buildCard(context, '/signUp', Icons.login, 'Sing Up'),
-                  buildCard(context, '/signOut', Icons.login, 'Sing Up'),
-                  buildCard(context, '/maltipleTab', Icons.tab, 'Maltiple Tab'),
-                  // buildCard(),
-                  // buildCard(),
-                  // buildCard(),
+                  buildCard(context, '/signUp', Icons.login, 'Sign Up'),
+                  buildCard(context, '/signOut', Icons.logout, 'Sign Out'),
+                  buildCard(context, '/maltipleTab', Icons.tab, 'Multiple Tab'),
                 ],
               ),
-            )
-
-
+            ),
           ],
         ),
       ),
-      endDrawer: RightDrawer(onItemTapped: (index) {
-        _navigateTo(context, index);
-      }),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: 0,
-        onTap: (index) => _navigateTo(context, index),
-      ),
     );
-  }
-
-  void _navigateTo(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacementNamed(context, '/home');
-        break;
-      case 1:
-        Navigator.pushReplacementNamed(context, '/users');
-        break;
-      case 2:
-        Navigator.pushReplacementNamed(context, '/profile');
-        break;
-    }
   }
 }
