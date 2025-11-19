@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 5), () {
+    startSplashProcess();
+  }
 
-      Navigator.pushReplacementNamed(context, '/home');
-    });
+  Future<void> startSplashProcess() async {
+    // Show splash image for 2 seconds
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Now check login status
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt("user_id");
+
+    if (!mounted) return;
+
+    if (userId != null) {
+      // User exists → Go to Home
+      Navigator.pushReplacementNamed(context, "/home");
+    } else {
+      // No user → Go to Login
+      Navigator.pushReplacementNamed(context, "/signUp");
+    }
   }
 
   @override

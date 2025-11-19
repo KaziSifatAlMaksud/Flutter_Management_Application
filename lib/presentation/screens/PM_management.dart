@@ -117,7 +117,7 @@ class _MultiTableTabPageState extends State<MultiTableTabPage>
           ),
 
           // EXTRA TAB
-          buildDummyTab(),
+          // buildDummyTab(),
         ],
       ),
     );

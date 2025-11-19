@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/bottomNavigationBar.dart';
 import '../widgets/rightDrawer.dart';
 import '../widgets/topbar.dart';
@@ -10,6 +11,23 @@ class HomePage extends StatelessWidget {
   static const String designation = 'Web Developer';
 
   const HomePage({Key? key}) : super(key: key);
+
+  Future<void> signOut(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
+    // Optional toast/snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Signed out successfully!"),
+        backgroundColor: Colors.red,
+      ),
+    );
+
+    // Navigate to Sign-In page
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +88,7 @@ class HomePage extends StatelessWidget {
                   buildCard(context, '/employee_view', Icons.pages_outlined, 'Home'),
                   buildCard(context, '/create_issue', Icons.sync_problem, 'Issue'),
                   buildCard(context, '/signUp', Icons.login, 'Sing Up'),
-                  buildCard(context, '/signUp', Icons.login, 'Sing Up'),
+                  buildCard(context, '/signOut', Icons.login, 'Sing Up'),
                   buildCard(context, '/maltipleTab', Icons.tab, 'Maltiple Tab'),
                   // buildCard(),
                   // buildCard(),

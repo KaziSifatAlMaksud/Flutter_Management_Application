@@ -10,15 +10,13 @@ import '../View/EmployeeView.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> get routes => {
-    // '/': (context) =>  SplashScreen(),
-    '/': (context) =>  HomePage(),
+    '/': (context) => const SplashScreen(),  // <-- IMPORTANT
     '/home': (context) => const HomePage(),
     '/users': (context) => UserListScreen(),
     '/employee_view': (context) => EmployeeView(),
-    '/profile': (context) =>  ProfilePage(),
-    '/signUp' : (context) => SignInPage(),
-    '/create_issue' : (context) => IssueFormPage(),
-    '/maltipleTab' : (context) => MultiTableTabPage(),
-
+    '/profile': (context) => ProfilePage(),
+    '/signUp': (context) => SignInPage(),
+    '/create_issue': (context) => IssueFormPage(),
+    '/maltipleTab': (context) => MultiTableTabPage(),
   };
 }
